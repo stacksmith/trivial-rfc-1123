@@ -1,11 +1,11 @@
 ### TRIVIAL-RFC-1123
 
-Parses dates in RFC-1123 format (dates that look like **Fri, 16 Jul 2010 02:33:50 -0500**
+Parses dates in RFC-1123 format (dates that look like **Fri, 16 Jul 2010 02:33:50 -0500)
 
 
 The code is taken directly from drakma and shoehorned to be standalone library for minimal applications requiring date parsing.
 
-According to the authors, the following formats will be parsed
+According to the authors, the following formats will be parsed:
 
     Wed, 06-Feb-2008 21:01:38 GMT
     Wed, 06-Feb-08 21:01:38 GMT
