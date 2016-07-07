@@ -1,4 +1,4 @@
-###TRIVIAL-RFC-1123
+### TRIVIAL-RFC-1123
 
 Parses dates in RFC-1123 format (dates that look like **Fri, 16 Jul 2010 02:33:50 -0500**
 
