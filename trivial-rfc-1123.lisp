@@ -1,12 +1,9 @@
 ;;;; trivial-rfc-1123.lisp
 ;;;
-;;; Ripped out of drakma
-;;;
-;;; I got tired of dragging drakma into my nntp reader code...
+;;; Ripped out of drakma, tired of dragging drakma into my nntp reader code...
 
 (in-package #:trivial-rfc-1123)
  
-
 (define-condition date-parse-error (error)
   ()
   (:documentation "Signaled when the date cannot be parsed."))
@@ -22,12 +19,14 @@ format control and arguments."
   "Like PARSE-INTEGER, but returns NIL instead of signalling an error."
   (ignore-errors (parse-integer string)))
 
+#-:lispworks
 (defmacro when-let ((var expr) &body body)
   "Evaluates EXPR, binds it to VAR, and executes BODY if VAR has
 a true value."
   `(let ((,var ,expr))
      (when ,var
        ,@body)))
+#+:lispworks
 
 (defvar *time-zone-map*
   ;; list taken from
@@ -139,10 +138,13 @@ one to twelve."
 either be something like \"PST\" or \"GMT\" with an offset like
 \"GMT-02:00\"."
   (or (cdr (assoc string *time-zone-map* :test #'string=))
-      (cl-ppcre:register-groups-bind (sign hours minutes) ("(?:GMT|)\\s*([+-]?)(\\d\\d):?(\\d\\d)" string)
+      (cl-ppcre:register-groups-bind (sign hours minutes)
+	  ("(?:GMT|)\\s*([+-]?)(\\d\\d):?(\\d\\d)" string)
         (* (if (equal sign "-") 1 -1)
-           (+ (parse-integer hours) (/ (parse-integer minutes) 60))))
+           (+ (parse-integer hours)
+	      (/ (parse-integer minutes) 60))))
       (date-parse-error "Can't interpret ~S as a time zone." string)))
+
 
 
 (defun parse-date (string)
