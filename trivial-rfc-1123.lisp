@@ -26,7 +26,7 @@ a true value."
   `(let ((,var ,expr))
      (when ,var
        ,@body)))
-#+:lispworks
+
 
 (defvar *time-zone-map*
   ;; list taken from
