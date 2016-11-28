@@ -159,10 +159,6 @@ time.  Currently understands the following formats:
 
 Instead of \"GMT\" time zone abbreviations like \"CEST\" and UTC
 offsets like \"GMT-01:30\" are also allowed.
-
-While this function has \"cookie\" in its name, it might come in
-handy in other situations as well and it is thus exported as a
-convenience function.
 "
   ;; ripped from drakma
   ;; it seems like everybody and their sister invents their own format
@@ -175,11 +171,11 @@ convenience function.
   (handler-case 
       (let* ((last-space-pos
               (or (position #\Space string :test #'char= :from-end t)
-                  (date-parse-error "Can't parse cookie date ~S, no space found." string)))
+                  (date-parse-error "Can't parse  date ~S, no space found." string)))
              (time-zone-string (subseq string (1+ last-space-pos)))
              (time-zone (interpret-as-time-zone time-zone-string))
              second minute hour day month year)
-        (dolist (part (rest (cl-ppcre:split "[ ,-]" (subseq string 0 last-space-pos))))
+	(dolist (part (cl-ppcre:split "[ ,-]" (subseq string 0 last-space-pos)))
           (when (and day month)
             (cond ((every #'digit-char-p part)
                    (when year
