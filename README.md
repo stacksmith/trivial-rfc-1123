@@ -17,6 +17,8 @@ According to the authors, the following formats will be parsed:
     Wednesday, 07-February-2027 08:55:23 GMT
     Wed, 07-02-2017 10:34:45 GMT
 ```
+In addition, omitting the day of week should work as of 28 Nov 2016.
+
 date-parse-error condition will be raised in case of problems.
  
  
