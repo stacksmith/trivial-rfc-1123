@@ -127,7 +127,7 @@ one to twelve."
   (or (when-let (pos (position (subseq string 0 (min 3 (length string)))
                                '("Jan" "Feb" "Mar" "Apr" "May" "Jun"
                                        "Jul" "Aug" "Sep" "Oct" "Nov" "Dec")
-                               :test #'string=))
+                               :test #'string-equal))
         (1+ pos))
       (when-let (num (safe-parse-integer string))
         (when (<= 1 num 12)
@@ -137,7 +137,7 @@ one to twelve."
   "Tries to interpret STRING as a time zone abbreviation which can
 either be something like \"PST\" or \"GMT\" with an offset like
 \"GMT-02:00\"."
-  (or (cdr (assoc string *time-zone-map* :test #'string=))
+  (or (cdr (assoc string *time-zone-map* :test #'string-equal))
       (cl-ppcre:register-groups-bind (sign hours minutes)
 	  ("(?:GMT|)\\s*([+-]?)(\\d\\d):?(\\d\\d)" string)
         (* (if (equal sign "-") 1 -1)
