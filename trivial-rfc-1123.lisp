@@ -28,6 +28,7 @@ a true value."
        ,@body)))
 
 
+
 (defvar *time-zone-map*
   ;; list taken from
   ;; <http://www.timeanddate.com/library/abbreviations/timezones/>
@@ -160,7 +161,7 @@ time.  Currently understands the following formats:
 Instead of \"GMT\" time zone abbreviations like \"CEST\" and UTC
 offsets like \"GMT-01:30\" are also allowed.
 "
-  ;; ripped from drakma
+  ;; from drakma:
   ;; it seems like everybody and their sister invents their own format
   ;; for this, so (as there's no real standard for it) we'll have to
   ;; make this function more flexible once we come across something
@@ -202,3 +203,29 @@ offsets like \"GMT-01:30\" are also allowed.
     (date-parse-error (condition)
       (error condition))))
 
+;;;-----------------------------------------------------------------------------
+;;; Wed, 06-Feb-2008 21:01:38
+(defconstant +day-names+
+    #("Mon" "Tue" "Wed" "Thu" "Fri" "Sat" "Sun"))
+(defconstant +month-names+
+  #("Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"))
+(defun as-rfc-1123 (universal-time &key (stream nil) (timezone nil))
+  "format a universal time to string (default) or optional stream"
+  (multiple-value-bind (second minute hour date month year day-of-week ds tz)
+      (decode-universal-time universal-time timezone)
+    (declare (ignore ds)) ;I have no idea what to do with this insanity.
+    ;; For some crazy reason, _current_ ds affects all time conversions!
+    ;; I am either a fool or this makes no sense at all.  Furthermore,
+    ;; trying to correct this is hard - subtracting an hour may affect your
+    ;; day, month and year, not to mention day of week!  If you have
+    ;; thoughts on the proper usage of DS, please let me know by opening an
+    ;; issue!
+    (multiple-value-bind (tz-hours tz-fraction) (truncate tz)
+      (format stream "~A, ~2,'0d-~A-~4,'0d ~2,'0d:~2,'0d:~2,'0d ~c~2,'0d~2,'0d"
+	      (elt +day-names+ day-of-week)
+	      date
+	      (elt +month-names+ (1- month))
+	      year
+	      hour minute second
+	      (if (minusp tz) #\+ #\-) ;; Am I crazy, or is TZ sign inverted?
+	      tz-hours (truncate (* 100 tz-fraction))))))
