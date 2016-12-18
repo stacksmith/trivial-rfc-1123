@@ -20,7 +20,7 @@ date-parse-error condition will be raised in case of problems.
 
 The code started out in drakma and was shoehorned to be a standalone library for applications requiring minimal date parsing and printing.
 
-According to the authors, the following formats will be parsed:
+According to Drakma authors, the following formats will be parsed:
 
 ```
     Wed, 06-Feb-2008 21:01:38 GMT
@@ -30,7 +30,7 @@ According to the authors, the following formats will be parsed:
     Wed, 07-02-2017 10:34:45 GMT
 ```
 The following was added to the drakma code, based on empirical studies of NNTP dates:
-
-- 28 Nov 2016.  Omitting the day of week should work as of 28 Nov 2016.
-- 01 Dec 2016.  Month and timezone parser is now case-insensitive (nntp servers have some like that)
-- 17 Dec 2016.  RFC-1123 output as well, by popular demand.
+```
+    07-02-2017 10:34:45 GMT        omitting day is ok
+	WEd, 06-Feb-08 21:01:38 GmT    no longer case sensitive
+```
