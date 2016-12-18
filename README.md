@@ -8,7 +8,8 @@ CL-USER> (t1123:parse-date "Fri, 16 Jul 2010 02:33:50 -0500")
 CL-USER> (t1123:as-rfc-1123 3488254430 :timezone 5); 'cause lisp TZ is backwards
 "Fri, 16-Jul-2010 02:33:50 -0500"
 
-Beware: not specifying :timezone will use _your current_ Daylight Savigs Time value.  This makes no sense to me, but I am only an egg...
+Beware: not specifying :timezone will use _your current_ Daylight Savigs Time value.
+This makes no sense to me, but I am only an egg:
 
 CL-USER> (t1123:as-rfc-1123 3488254430)
 "Fri, 16-Jul-2010 00:33:50 -0800" NOTE - only 2 hour difference! I am on DS time.  Wha???
