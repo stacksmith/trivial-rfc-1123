@@ -34,6 +34,10 @@ date-parse-error condition will be raised in case of problems.
 
 ### Return: string if stream is nil, nil otherwise.
 
+## License
+
+Parts are subject to "Edi Weitz" license, and the rest, BSD 3-clause license (very similar).  The lowdown: credit copyright ownership, pack licenses and disclaimers with your code and distributables, and do not use the authors' names without permission for any unreasonable purpose.
+
 ## History
 
 The code started out in drakma and was shoehorned to be a standalone library for applications requiring minimal date parsing and printing.

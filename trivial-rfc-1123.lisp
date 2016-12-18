@@ -1,6 +1,10 @@
 ;;;; trivial-rfc-1123.lisp
 ;;;
-;;; Ripped out of drakma, tired of dragging drakma into my nntp reader code...
+;;; Portions ripped out of drakma and are subject to
+;;; (c) 2006-2012 Dr. Edmund Weitz, subject to attached license.
+;;;
+;;; Remaining code is (c) 2015 Stacksmith, subject to attached
+;;; BSD 3-clause license (see BSD-LICENSE).
 
 (in-package #:trivial-rfc-1123)
  
