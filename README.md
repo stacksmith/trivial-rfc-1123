@@ -18,21 +18,21 @@ CL-USER> (t1123:as-rfc-1123 (get-universal-time) :timezone nil); use current tz!
 ```
 ## (parse-date string)
 
-# Return: universal time for the string.
+### Return: universal time for the string.
 
 date-parse-error condition will be raised in case of problems.
 
 ## (as-rfc-1123 universal-time &key (stream nil) (timezone 0)
 
-# Stream:
+### Stream:
 - nil return string
 - t output to *standard-output*
 - valid stream - output to stream.
 
-# Timezone:
+### Timezone:
 - Specify timezone for output.  Only rational timezones are supported.  Nil means use current tz from (decode-universal-time) which is useful for current time.
 
-# Return: string if stream is nil, nil otherwise.
+### Return: string if stream is nil, nil otherwise.
 
 ## History
 
