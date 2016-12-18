@@ -6,7 +6,9 @@ CL-USER> (ql:quickload :trivial-rfc-1123)
 CL-USER> (t1123:parse-date "Fri, 16 Jul 2010 02:33:50 -0500")
 3488254430
 ```
-The code is taken directly from drakma and shoehorned to be standalone library for minimal applications requiring date parsing.
+date-parse-error condition will be raised in case of problems.
+
+The code started out in drakma and was shoehorned to be standalone library for minimal applications requiring date parsing.
 
 According to the authors, the following formats will be parsed:
 
@@ -19,10 +21,5 @@ According to the authors, the following formats will be parsed:
 ```
 The following was added to the drakma code, based on empirical studies of NNTP dates:
 
- - omitting the day of week should work as of 28 Nov 2016.
-
-date-parse-error condition will be raised in case of problems.
- 
- 
-
- - month and timezone parser is now case-insensitive
+28 Nov 2016.  Omitting the day of week should work as of 28 Nov 2016.
+   Dec 2016.  Month and timezone parser is now case-insensitive (nntp servers have some like that)
