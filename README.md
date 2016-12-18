@@ -18,7 +18,7 @@ CL-USER> (t1123:as-rfc-1123 3488254430)
 date-parse-error condition will be raised in case of problems.
 
 
-The code started out in drakma and was shoehorned to be standalone library for minimal applications requiring date parsing and printing.
+The code started out in drakma and was shoehorned to be a standalone library for applications requiring minimal date parsing and printing.
 
 According to the authors, the following formats will be parsed:
 
