@@ -58,4 +58,4 @@ The following was added to the drakma code, based on empirical studies of NNTP d
 	WEd, 06-Feb-08 21:01:38 GmT    no longer case sensitive
 ```
 
-A limited output function was added.  For more flexible output (such as better timezone handling), see (local-time)[https://www.common-lisp.net/project/local-time/] - which sadly does not parse RFC-1123, but outputs it
+A limited output function was added.  For more flexible output (such as better timezone handling), see [local-time](https://www.common-lisp.net/project/local-time/) - which sadly does not parse RFC-1123, but outputs it
