@@ -209,23 +209,31 @@ offsets like \"GMT-01:30\" are also allowed.
     #("Mon" "Tue" "Wed" "Thu" "Fri" "Sat" "Sun"))
 (defconstant +month-names+
   #("Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"))
-(defun as-rfc-1123 (universal-time &key (stream nil) (timezone nil))
-  "format a universal time to string (default) or optional stream"
+(defun as-rfc-1123 (universal-time &key (stream nil) (timezone 0))
+  "format a universal time to string (default) or optional stream, in GMT 
+timezone (unless :timezone option is specified, in Lisp sign-inverted manner.
+Specifying NIL for timezone will insert machine-local current timezone, which
+only makes sense for dealing with current time!"
+  ;; Some gymnastics are performed, having to do with sign eating up format
+  ;; space, (there is probably a better way, it being Lisp)
   (multiple-value-bind (second minute hour date month year day-of-week ds tz)
       (decode-universal-time universal-time timezone)
-    (declare (ignore ds)) ;I have no idea what to do with this insanity.
-    ;; For some crazy reason, _current_ ds affects all time conversions!
-    ;; I am either a fool or this makes no sense at all.  Furthermore,
-    ;; trying to correct this is hard - subtracting an hour may affect your
-    ;; day, month and year, not to mention day of week!  If you have
-    ;; thoughts on the proper usage of DS, please let me know by opening an
-    ;; issue!
-    (multiple-value-bind (tz-hours tz-fraction) (truncate tz)
-      (format stream "~A, ~2,'0d-~A-~4,'0d ~2,'0d:~2,'0d:~2,'0d ~c~2,'0d~2,'0d"
+    (declare (ignore ds));; Ignoring this - if timezone nil, the user means it..
+    (let ((tzout
+	   (if (zerop tz)
+	       "GMT"
+	       (multiple-value-bind (tz-hours tz-fraction) (truncate tz)
+		 (format nil "~c~2,'0d~2,'0d"
+			 (if (minusp tz)
+			     (progn (setf tz-hours (- tz-hours))
+				    #\+)
+			     #\-) ;; Lisp uses inverted sign
+			 tz-hours
+			 (truncate (* 60 tz-fraction)))))))
+      (format stream "~A, ~2,'0d-~A-~4,'0d ~2,'0d:~2,'0d:~2,'0d ~A"
 	      (elt +day-names+ day-of-week)
 	      date
 	      (elt +month-names+ (1- month))
 	      year
 	      hour minute second
-	      (if (minusp tz) #\+ #\-) ;; Am I crazy, or is TZ sign inverted?
-	      tz-hours (truncate (* 100 tz-fraction))))))
+	      tzout))))
