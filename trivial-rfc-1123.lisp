@@ -209,9 +209,9 @@ offsets like \"GMT-01:30\" are also allowed.
 
 ;;;-----------------------------------------------------------------------------
 ;;; Wed, 06-Feb-2008 21:01:38
-(defconstant +day-names+
+(defparameter +day-names+
     #("Mon" "Tue" "Wed" "Thu" "Fri" "Sat" "Sun"))
-(defconstant +month-names+
+(defparameter +month-names+
   #("Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"))
 (defun as-rfc-1123 (universal-time &key (stream nil) (timezone 0))
   "format a universal time to string (default) or optional stream, in GMT 
