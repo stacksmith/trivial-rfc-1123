@@ -51,7 +51,8 @@ According to Drakma authors, the following formats will be parsed:
     Wednesday, 07-February-2027 08:55:23 GMT
     Wed, 07-02-2017 10:34:45 GMT
 ```
-Note: Drakma is not clear on this, but if a timezone offset is specified, it is always considered to be from GMT.  It will accept "PST-02:00
+Note: Drakma is not clear on this, but if a timezone offset is specified, it is always considered to be from GMT.  It will accept "PST-02:00", but the result is same as "GMT-02:00", or plain "-02:00".
+
 The following was added to the drakma code, based on empirical studies of NNTP dates:
 ```
     Fri, 07-02-2017 10:34:45 +0800   numeric timezone is ok - 4 digits HHMM
