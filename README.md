@@ -30,7 +30,7 @@ date-parse-error condition will be raised in case of problems.
 - valid stream - output to stream.
 
 ### Timezone:
-- Specify timezone for output.  Only rational timezones are supported.  Nil means use current tz from (decode-universal-time) which is useful for current time.
+- Specify timezone for output.  Lisp timezone, please (it is backwards from the normal offset: for GMT-08:00, specify 8).  Only rational timezones are supported.  Nil means use current tz from (decode-universal-time) which is useful for current time.
 
 ### Return: string if stream is nil, nil otherwise.
 
