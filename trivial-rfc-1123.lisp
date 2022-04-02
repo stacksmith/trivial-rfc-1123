@@ -23,15 +23,12 @@ format control and arguments."
   "Like PARSE-INTEGER, but returns NIL instead of signalling an error."
   (ignore-errors (parse-integer string)))
 
-#-:lispworks
-(defmacro when-let ((var expr) &body body)
+(defmacro when-letx ((var expr) &body body)
   "Evaluates EXPR, binds it to VAR, and executes BODY if VAR has
 a true value."
   `(let ((,var ,expr))
      (when ,var
        ,@body)))
-
-
 
 (defvar *time-zone-map*
   ;; list taken from
@@ -129,12 +126,12 @@ the corresponding number of the month.  Accepts three-letter
 abbreviations like \"Feb\" and full month names likes \"February\".
 Finally, the function also accepts strings representing integers from
 one to twelve."
-  (or (when-let (pos (position (subseq string 0 (min 3 (length string)))
+  (or (when-letx (pos (position (subseq string 0 (min 3 (length string)))
                                '("Jan" "Feb" "Mar" "Apr" "May" "Jun"
                                        "Jul" "Aug" "Sep" "Oct" "Nov" "Dec")
                                :test #'string-equal))
         (1+ pos))
-      (when-let (num (safe-parse-integer string))
+      (when-letx (num (safe-parse-integer string))
         (when (<= 1 num 12)
           num))))
 
